@@ -1,0 +1,93 @@
+<div class="row">
+    <div class="col">
+        <h1>Fornecedores</h1>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col-4">
+        <label for="cnpjFornecedor">Nome</label>
+        <input type="text" class="form-control" placeholder="nome" id="nomeBusca">
+    </div>
+
+    <div class="col-2">
+        <label for="cnpjFornecedor">CPF/CNPJ</label>
+        <input type="text" class="form-control" placeholder="CPF/CNPJ" id="fornecedorBusca">
+    </div>
+
+    <div class="col-3">
+        <label for="cnpjFornecedor">Data cadastro</label>
+        <input type="date" class="form-control" id="dataBusca">
+    </div>
+
+    <div class="col-2" style="align-self: flex-end;">
+        <button class="btn btn-primary" onclick="buscaFornecedor()">
+            Buscar fornecedor
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">EMPRESA</th>
+                    <th scope="col">FORNECEDOR</th>
+                    <th scope="col">NOME</th>
+                    <th scope="col">RG</th>
+                    <th scope="col">DATA NASCIMENTO</th>
+                    <th scope="col">DATA CADASTRO</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                if(count($fornecedores)){ 
+                    foreach($fornecedores as $fornecedor){ ?>
+                        <tr>
+                            <td><?=$fornecedor->empresa?></td>
+                            <td><?=$fornecedor->fornecedor?></td>
+                            <td><?=$fornecedor->nome?></td>
+                            <td><?=$fornecedor->rg?></td>
+                            <td><?=$fornecedor->data_nascimento?></td>
+                            <td><?=$fornecedor->data_cadastro?></td>
+                        </tr>
+                <?php 
+                    }
+                }else{ ?>
+                    <tr>
+                        <td colspan="6">Nenhum fornecedor</td>
+                    </tr>
+                <?php 
+                } ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <a href="<?=$this->basePath('/fornecedor/add')?>" class="btn btn-primary">
+            Adicionar fornecedor
+        </a>
+    </div>
+</div>
+
+<script>
+    function buscaFornecedor(){
+        let nome        = $('#nomeBusca').val()
+        let fornecedor  = $('#fornecedorBusca').val()
+        let data        = $('#dataBusca').val()
+        
+        let xhttp = new XMLHttpRequest();
+        
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                $('table.table > tbody').html(this.responseText)
+            }
+        };
+
+        xhttp.open("GET", "/fornecedor/get-fornecedores?nome="+ nome +"&fornecedor=" + fornecedor + "&data=" + data, true);
+        xhttp.send();
+    }
+</script>

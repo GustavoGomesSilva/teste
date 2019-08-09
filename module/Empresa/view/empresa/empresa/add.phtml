@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col">
+        <h1>Cadastro de empresas</h1>
+    </div>
+</div>
+
+<form class="needs-validation" novalidate action="<?=$this->basePath('/empresa/add')?>" method="POST">
+    <div class="form-row">
+        <div class="col-md-2 mb-3">
+            <label for="cnpjEmpresa">CNPJ</label>
+            <input type="text" class="form-control" id="cnpjEmpresa" name="CNPJ" placeholder="CNPJ" required>
+            <div class="invalid-feedback">
+                Informe o CNPJ
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <label for="nomeFantasia">Nome fantasia</label>
+            <input type="text" class="form-control" id="nomeFantasia" name="NOME_FANTASIA" placeholder="Nome fantasia" required maxlength="150">
+            <div class="invalid-feedback">
+                Informe o nome fantasia
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <label for="ufEmpresa">UF</label>
+            <select id="ufEmpresa" name="UF" class="form-control" required>
+                <option value="">Selecione</option>
+                <?php
+                foreach($estados as $key => $value){ ?>
+                    <option value="<?=$key?>"><?=$value?></option>
+                <?php 
+                } ?>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-1">
+            <a href="<?=$this->basePath('/empresa')?>" class="btn btn-danger">
+                Cancelar
+            </a>
+        </div>
+
+        <div class="col-2">
+            <button type="submit" class="btn btn-primary" id="submitbutton" name="submitbutton" value="Go">
+                Salvar empresa
+            </button>
+        </div>
+    </div>
+</form>
+
+<script>
+
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {            
+            let forms = document.getElementsByClassName('needs-validation');
+
+            let validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>

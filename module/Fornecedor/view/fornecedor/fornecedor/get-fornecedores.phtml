@@ -1,0 +1,20 @@
+<?php
+
+if(count($fornecedores)){ 
+    foreach($fornecedores as $fornecedor){ ?>
+        <tr>
+            <td><?=$fornecedor->empresa?></td>
+            <td><?=$fornecedor->fornecedor?></td>
+            <td><?=$fornecedor->nome?></td>
+            <td><?=$fornecedor->rg?></td>
+            <td><?=$fornecedor->data_nascimento?></td>
+            <td><?=$fornecedor->data_cadastro?></td>
+        </tr>
+<?php 
+    }
+}else{ ?>
+    <tr>
+        <td colspan="6">Nenhum fornecedor</td>
+    </tr>
+<?php 
+} ?>

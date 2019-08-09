@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col">
+        <h1>Empresas</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-8">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">CNPJ</th>
+                    <th scope="col">NOME FANTASIA</th>
+                    <th scope="col">UF</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                if(count($empresas)){ 
+                    foreach($empresas as $empresa){ ?>
+                        <tr>
+                            <td><?=$empresa->cnpj?></td>
+                            <td><?=$empresa->nome_fantasia?></td>
+                            <td><?=$empresa->uf?></td>
+                        </tr>
+                <?php 
+                    }
+                }else{ ?>
+                    <tr>
+                        <td colspan="3">Nenhuma empresa</td>
+                    </tr>
+                <?php 
+                } ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <a href="<?=$this->basePath('/empresa/add')?>" class="btn btn-primary">
+            Adicionar empresa
+        </a>
+    </div>
+</div>
